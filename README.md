@@ -8,7 +8,7 @@
 
 ## Outputs
 
-- Your GitHub repository
+- Your GitHub repository (including all history)
   - A README.md file that describes the project
   - GitHub automation workflow
   - Dagger workflow (in Go)
