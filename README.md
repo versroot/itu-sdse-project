@@ -17,7 +17,7 @@
   - A README.md file that describes the project
   - GitHub automation workflow
   - Dagger workflow (in Go)
-- Model artefact produced by GitHub workflow
+- Model artifact produced by GitHub workflow
 
 ## How will we assess
 
@@ -41,4 +41,4 @@
 #### Documentation
 
 - Description of project structure
-- How to run the code and generate the model artefact
+- How to run the code and generate the model artifact
