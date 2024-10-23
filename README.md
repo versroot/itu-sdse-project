@@ -1,4 +1,4 @@
-# ITU SDSE'24 - Project
+# ITU BDS SDSE'24 - Project
 
 
 ## Project architecture
