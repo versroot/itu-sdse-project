@@ -1,5 +1,6 @@
 # ITU SDSE'24 - Project
 
+
 ## Project architecture
 
 ![Project architecture](./docs/project-architecture.png)
