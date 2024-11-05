@@ -21,10 +21,9 @@ def generate_data(n_rows=1_000, seed=42):
             "country": np.random.choice(["US", "CN", "DK"], size=n_rows),
             "visited_learn_more_before_booking": np.random.negative_binomial(1, 0.2, size=n_rows),
             "visited_faq": np.random.negative_binomial(1, 0.2, size=n_rows),
-            "n_visits": np.random.negative_binomial(1, 0.2, size=n_rows),
             "purchases": np.random.poisson(5, size=n_rows),
             "time_spent": np.random.normal(100, 10, size=n_rows),
-            "customer_group": np.random.randint(1, 100, size=n_rows),
+            "customer_group": np.random.randint(1, 10, size=n_rows),
             "onboarding": np.random.choice([True, False], size=n_rows),
             "customer_code": [
                 "".join(np.random.choice([x for x in string.ascii_uppercase], size=10)) 
@@ -32,5 +31,10 @@ def generate_data(n_rows=1_000, seed=42):
             ]
         }
     )
+    df["n_visits"] = (
+        np.random.negative_binomial(1, 0.2, size=n_rows) 
+        + np.random.randint(3, 15, n_rows) * df["lead_indicator"].replace({"": 0}).astype(int)
+    )
+
     return df
 
