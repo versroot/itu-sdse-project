@@ -32,7 +32,7 @@ def generate_data(n_rows=1_000, seed=42):
         }
     )
     df["n_visits"] = (
-        np.random.negative_binomial(1, 0.2, size=n_rows) 
+        1 + np.random.negative_binomial(1, 0.2, size=n_rows) 
         + np.random.randint(3, 15, n_rows) * df["lead_indicator"].replace({"": 0}).astype(int)
     )
 
