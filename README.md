@@ -1,15 +1,29 @@
 # ITU BDS SDSE'24 - Project
 
+## Task
 
-## Project architecture
+Based on the input provided (see below), fork the repository and restructure the code to adhere to the concepts and ideas you have seen throughout the course.  The diagram below provides a detailed overview of the structure that the solution is expected to follow.   
 
 ![Project architecture](./docs/project-architecture.png)
 
+For the exam submission, we expect you to submit a pdf containing:
+- the list of members of the group
+- the link to the github.com repository hosting your solution
+
+The repository linked in the submission should contain:
+
+- A README.md file that describes the project
+- GitHub automation workflow
+- Dagger workflow (in Go)
+- All history
+
+
 ## Inputs
 
-- Python monolith
-- (Sterile) data
-- GitHub action (to test model inference)
+You are given the following material:
+- Python monolith (see `notebooks` folder)
+- (Sterile) data (JEPPE WHERE)
+- GitHub action to test model inference (LASSE WHERE)
 
 ## Outputs
 
@@ -19,7 +33,10 @@
   - Dagger workflow (in Go)
 - Model artifact produced by GitHub workflow
 
+
 ## How will we assess
+
+Below, we provide information on how we will assess the submission clustered around several aspects.  The list relates to groups of size 3; if your group is of size 4, you are expected also to use pull requests and to provide tests.
 
 #### Versioning
 
@@ -42,3 +59,8 @@
 
 - Description of project structure
 - How to run the code and generate the model artifact
+
+
+## Questions
+
+If you have any questions about the information shared here, please feel free to post them on Learnit. Answers to private emails on this topic will also be shared on Learnit, along with the original email content, so that everyone has access to the same information.
