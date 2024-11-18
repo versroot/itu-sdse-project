@@ -47,6 +47,7 @@ Below, we provide information on how we will assess the submission clustered aro
 #### Programming
 
 - Decomposition of Python notebook
+- Adherance to standard data science MLOps project structure
 - Presence of tests (OPTIONAL)
 
 #### Workflow automation
