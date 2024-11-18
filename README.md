@@ -22,7 +22,7 @@ The repository linked in the submission should contain:
 
 You are given the following material:
 - Python monolith (see `notebooks` folder)
-- (Sterile) data (JEPPE WHERE)
+- Raw input data (see `notebooks/artifacts` folder)
 - GitHub action to test model inference (LASSE WHERE)
 
 ## Outputs
@@ -54,7 +54,7 @@ Below, we provide information on how we will assess the submission clustered aro
 - Structure of Dagger workflow
 - Orchestration of Dagger workflow through GitHub workflow
 
-#### Documentation
+#### Documentation (README.md)
 
 - Description of project structure
 - How to run the code and generate the model artifact
