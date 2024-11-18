@@ -8,7 +8,7 @@ Based on the input provided (see below), fork the repository and restructure the
 
 For the exam submission, we expect you to submit a pdf containing:
 - the list of members of the group
-- the link to the github.com repository hosting your solution
+- the link to the github.com private repository hosting your solution.  You will need to invite the three of us as collaborators: lasselundstenjensen, Jeppe-T-K, paolotell.
 
 The repository linked in the submission should contain:
 
@@ -36,14 +36,13 @@ You are given the following material:
 
 ## How will we assess
 
-Below, we provide information on how we will assess the submission clustered around several aspects.  The list relates to groups of size 3; if your group is of size 4, you are expected also to use pull requests and to provide tests.
+Below, we provide information on how we will assess the submission clustered around several aspects.  The list relates to groups of size 3; if your group is of size 4, you are expected also to work on the optional items, i.e., to use pull requests and to provide tests.
 
 #### Versioning
 
 - Use of Git (semantic commit messages, branches, branch longevity, commit frequency/size)
 - Management of data
 - Use of pull requests (OPTIONAL)
-- Use of code reviews (OPTIONAL)
 
 #### Programming
 
