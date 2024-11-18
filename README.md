@@ -31,7 +31,7 @@ You are given the following material:
   - A README.md file that describes the project
   - GitHub automation workflow
   - Dagger workflow (in Go)
-- Model artifact produced by GitHub workflow
+- Model artifact produced by GitHub workflow and named 'model'
 
 
 ## How will we assess
