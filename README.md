@@ -52,6 +52,8 @@ Below, we provide information on how we will assess the submission clustered aro
 
 #### Workflow automation
 
+- Presence of a workflow that trains the model
+- Presence of a workflow that tests the model
 - Structure of Dagger workflow
 - Orchestration of Dagger workflow through GitHub workflow
 
