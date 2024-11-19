@@ -23,7 +23,7 @@ The repository linked in the submission should contain:
 You are given the following material:
 - Python monolith (see `notebooks` folder)
 - Raw input data (see `notebooks/artifacts` folder)
-- GitHub action to test model inference (LASSE WHERE)
+- GitHub action to test model inference (see [`model-validator`](https://github.com/lasselundstenjensen/itu-sdse-project-model-validator) action)
 
 ## Outputs
 
@@ -32,6 +32,15 @@ You are given the following material:
   - GitHub automation workflow
   - Dagger workflow (in Go)
 - Model artifact produced by GitHub workflow and named 'model'
+
+> **NOTE:**
+> The Dagger workflow can be run locally or inside the GitHub workflow—both are viable options during development.
+>
+> The Dagger workflow can run locally and can also be made to produce outputs locally during development. But when wrapping the Dagger workflow in a GitHub workflow, the output is instead stored inside the GitHub runner (i.e. a virtual machine).
+>
+> Use the publicly available [`actions/upload-artifact`](https://github.com/actions/upload-artifact) to store the model artifact in the GitHub worklow pipeline.
+>
+> This model artifact can then be picked up by the [action provided](https://github.com/lasselundstenjensen/itu-sdse-project-model-validator), which will run some inference tests to ensure that the correct model was trained.
 
 
 ## How will we assess
