@@ -1,4 +1,4 @@
-# ITU BDS SDSE'24 - Project
+# ITU BDS MLOPS'25 - Project
 
 ## Task
 
