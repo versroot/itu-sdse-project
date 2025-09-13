@@ -8,7 +8,8 @@ Based on the input provided (see below), fork the repository and restructure the
 
 For the exam submission, we expect you to submit a pdf containing:
 - the list of members of the group
-- the link to the github.com private repository hosting your solution.  You will need to invite the three of us as collaborators: lasselundstenjensen, Jeppe-T-K, paolotell.
+- the link to the github.com public repository hosting your solution
+  - following the above, there is *no need* to invite the teaching staff as collaborators
 
 The repository linked in the submission should contain:
 
