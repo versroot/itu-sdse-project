@@ -1,5 +1,8 @@
 # ITU BDS MLOPS'25 - Project
 
+
+I'm just testing how to start a PR. - I. 
+
 ## Task
 
 Based on the input provided (see below), fork the repository and restructure the code to adhere to the concepts and ideas you have seen throughout the course.  The diagram below provides a detailed overview of the structure that the solution is expected to follow.   
