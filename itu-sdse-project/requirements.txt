@@ -5,4 +5,17 @@ python-dotenv
 ruff
 tqdm
 typer
+
+# for data exploration
+pandas==2.2.3
+numpy
+matplotlib
+seaborn
+plotly.express
+
+# for modeling
+scikit-learn==1.5.2
+mlflow==2.18.0
+xgboost==2.1.1
+
 -e .
