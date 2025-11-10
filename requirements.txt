@@ -17,5 +17,6 @@ plotly.express
 scikit-learn==1.5.2
 mlflow==2.18.0
 xgboost==2.1.1
+####scikit
 
 -e .
