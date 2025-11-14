@@ -33,13 +33,14 @@ jobs:
 
       - name: Install project dependencies using uv
         run: |
-          uv sync
+          uv pip install -r requirements.txt
+          uv pip install -e .
 
       - name: Lint with ruff
         run: |
           uv pip install ruff
-          ruff check .
+          uv run ruff check .
 
       - name: Run tests
         run: |
-          pytest -vv --maxfail=1
+          uv run pytest -vv --maxfail=1
