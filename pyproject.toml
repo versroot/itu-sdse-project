@@ -17,6 +17,25 @@ classifiers = [
 ]
 requires-python = "~=3.10.0"
 
+dependencies = [
+  "loguru",
+  "mkdocs",
+  "pip",
+  "python-dotenv",
+  "ruff",
+  "tqdm",
+  "typer",
+
+  "pandas==2.2.3",
+  "numpy",
+  "matplotlib",
+  "seaborn",
+  "plotly.express",
+
+  "scikit-learn==1.5.2",
+  "mlflow==2.18.0",
+  "xgboost==2.1.1",
+]
 
 [tool.ruff]
 line-length = 99
