@@ -1,2 +1,5 @@
 venv 
 .history
+mlruns/
+__pycache__/
+artifacts/
