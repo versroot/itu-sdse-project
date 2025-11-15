@@ -4,43 +4,44 @@ on:
   push:
     branches: [ main, workflows-katya ]
   pull_request:
-    branches: [ main, workflows-katya]
+    branches: [ main, workflows-katya ]
 
 jobs:
-  ci:
-    name: Run Linting and Tests
+  build-and-test:
+    name: Build container, lint, and run tests (uv)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image (with cache)
+        uses: docker/build-push-action@v6
         with:
-          python-version: "3.10"
+          context: .
+          push: false
+          tags: local/itu-sdse:ci
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Install uv package manager
+      # Run ruff + pytest inside the container.
+      # We mount the workspace so you test exactly the checked-out code.
+      - name: Lint and Test inside container
         run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Cache uv dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/uv
-          key: uv-${{ runner.os }}-${{ hashFiles('**/requirements*.txt', 'pyproject.toml') }}
-
-      - name: Install project dependencies using uv
-        run: |
-          uv sync
-
-      - name: Lint with ruff
-        run: |
-          uv pip install ruff
-          uv run ruff check . || true
-
-      - name: Run tests
-        run: |
-          uv run pytest -vv --maxfail=1 || true
-
+          docker run --rm \
+            -e MLFLOW_TRACKING_URI="file:/opt/mlruns" \
+            -v "${GITHUB_WORKSPACE}:/app" \
+            --workdir /app \
+            local/itu-sdse:ci \
+            bash -lc '
+              # Ensure deps synced for the mounted code (fast if unchanged)
+              uv sync --dev
+              echo "== Ruff =="
+              uv run ruff check .
+              echo "== Pytest =="
+              uv run pytest -vv --maxfail=1
+            '
