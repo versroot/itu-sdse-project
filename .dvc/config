@@ -2,4 +2,5 @@
     remote = gdrive_remote
 ['remote "gdrive_remote"']
     url = gdrive://1vghUT_qDPlR_MLbzvM6IzGXYI6oyz6T9
-    gdrive_acknowledge_abuse = true
+    gdrive_client_id = 86175006830-2okoc4muul6cp8pgfj1rt9l4bol2coc9.apps.googleusercontent.com
+    gdrive_client_secret = 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
