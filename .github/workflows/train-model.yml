@@ -21,14 +21,16 @@ jobs:
 
       - name: Install Dagger CLI
         run: |
+          export BIN_DIR="$GITHUB_WORKSPACE/bin"
+          mkdir -p "$BIN_DIR"
           curl -L https://dl.dagger.io/dagger/install.sh | sh
           echo "$PWD/bin" >> "$GITHUB_PATH"
-          dagger version
+          "$BIN_DIR/dagger" version
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
         working-directory: ci
         run: |
-          dagger run go run .
+          "$GITHUB_WORKSPACE/bin/dagger" dagger run go run .
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
