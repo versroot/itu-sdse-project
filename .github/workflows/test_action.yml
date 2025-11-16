@@ -23,6 +23,5 @@ jobs:
           path: ./model
 
       - name: Run model validator
-        uses: lasselundstenjensen/itu-sdse-project-model-validator@v1
-        with:
-          model-path: "./model"
+        uses: lasselundstenjensen/itu-sdse-project-model-validator@main
+     
