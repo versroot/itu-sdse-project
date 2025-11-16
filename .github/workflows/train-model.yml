@@ -36,4 +36,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: model         
-          path: model         
+          path: model 
+
+          
+  validate-model:
+    needs: dagger-train
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download trained model artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: model
+          path: ./model
+
+      - name: Run model validator
+        uses: lasselundstenjensen/itu-sdse-project-model-validator@main
+    
