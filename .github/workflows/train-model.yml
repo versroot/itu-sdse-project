@@ -22,6 +22,7 @@ jobs:
       - name: Install Dagger CLI
         run: |
           curl -L https://dl.dagger.io/dagger/install.sh | sh
+          echo "$PWD/bin" >> "$GITHUB_PATH"
           dagger version
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
