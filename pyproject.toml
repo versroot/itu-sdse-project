@@ -49,3 +49,6 @@ extend-select = ["I"]  # Add import sorting
 known-first-party = ["mlops_project"]
 force-sort-within-sections = true
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
