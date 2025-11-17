@@ -1,4 +1,3 @@
-import types
 
 
 def test_wait_until_ready_stops_when_model_is_ready(monkeypatch):

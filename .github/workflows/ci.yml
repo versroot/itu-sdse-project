@@ -39,7 +39,7 @@ jobs:
           tags: ${{ env.IMAGE }}
 
   lint:
-    name: Lint with ruff (inside container)
+    name: Lint with ruff (inside container). # Syntax errors, code quality issues, style violations, potential bugs
     continue-on-error: true
     runs-on: ubuntu-latest
     needs: build-image

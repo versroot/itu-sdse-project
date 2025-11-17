@@ -1,11 +1,11 @@
 import datetime
-import mlflow
-import pandas as pd
+import json
 import time
-from mlflow.tracking.client import MlflowClient
+
+import mlflow
 from mlflow.entities.model_registry.model_version_status import ModelVersionStatus
 from mlflow.tracking.client import MlflowClient
-import json
+import pandas as pd
 
 current_date = datetime.datetime.now().strftime("%Y_%B_%d")
 artifact_path = "model"

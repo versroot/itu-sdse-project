@@ -1,8 +1,7 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from mlops_project.preprocessing import describe_numeric_col, impute_missing_values
-
 
 # ---------- describe_numeric_col tests ----------
 
