@@ -1,5 +1,6 @@
-from mlflow.tracking import MlflowClient
 import time
+
+from mlflow.tracking import MlflowClient
 
 model_version = 1
 model_name = "lead_model"
