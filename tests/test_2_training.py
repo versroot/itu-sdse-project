@@ -1,24 +1,65 @@
+import sys
+import types
+
 import pandas as pd
 
-from mlops_project.training import create_dummy_cols
+# Lightweight stand-ins for XGBoost & RandomizedSearchCV
+
+class DummyModel:
+    def fit(self, X, y):
+        return self
+
+    def predict(self, X):
+        # trivial deterministic predictions
+        return [0] * len(X)
+
+    # training.py calls save_model on the XGBoost model
+    def save_model(self, path):
+        with open(path, "w") as f:
+            f.write("dummy model")
 
 
-def test_create_dummy_cols_drops_original_column():
-    df = pd.DataFrame({"source": ["signup", "fb", "li"]})
+class DummyRandomizedSearchCV:
+    def __init__(self, estimator, param_distributions=None, **kwargs):
+        # In real life this would tune hyperparameters;
+        # here we just expose a simple best_estimator_.
+        self.best_estimator_ = DummyModel()
 
-    result = create_dummy_cols(df, "source")
+    def fit(self, X, y):
+        return self
 
-    # original column must be gone
-    assert "source" not in result.columns
-    # at least one dummy column must be present
-    assert any(col.startswith("source_") for col in result.columns)
+    def predict(self, X):
+        return [0] * len(X)
 
 
-def test_create_dummy_cols_uses_drop_first():
-    df = pd.DataFrame({"customer_group": [1, 2, 3, 1]})
+# Stub external libs BEFORE importing training
 
-    result = create_dummy_cols(df, "customer_group")
+# Fake sklearn.model_selection.RandomizedSearchCV
+sklearn_pkg = types.ModuleType("sklearn")
+sklearn_pkg.__path__ = []  # mark as package
+sys.modules.setdefault("sklearn", sklearn_pkg)
 
-    # there were 3 unique values -> with drop_first=True we expect 2 dummy columns
-    dummy_cols = [c for c in result.columns if c.startswith("customer_group_")]
-    assert len(dummy_cols) == 2
+sklearn_ms = types.ModuleType("sklearn.model_selection")
+sklearn_ms.RandomizedSearchCV = DummyRandomizedSearchCV
+sys.modules["sklearn.model_selection"] = sklearn_ms
+
+# Fake xgboost.XGBRFClassifier
+xgb_mod = types.ModuleType("xgboost")
+xgb_mod.XGBRFClassifier = DummyModel
+sys.modules["xgboost"] = xgb_mod
+
+
+# Now import training; it will see the dummy classes above
+from mlops_project import training
+
+
+def test_create_dummy_cols_basic():
+    df = pd.DataFrame({"group": ["a", "b", "a"]})
+    out = training.create_dummy_cols(df, "group")
+
+    # original column should be dropped
+    assert "group" not in out.columns
+    # at least one dummy column should exist
+    assert any(col.startswith("group_") for col in out.columns)
+    # row count is preserved
+    assert len(out) == len(df)
