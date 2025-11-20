@@ -3,3 +3,4 @@ venv
 mlruns/
 __pycache__/
 artifacts/
+/data
