@@ -1,4 +1,10 @@
 [core]
+    remote = github
+['remote "github"']
+    url = https://github.com/Jeppe-T-K/itu-sdse-project-data
+
+# TASK: We have to decide, it we want to use google drive, or fine with the original source
+
     remote = gdrive_remote
 ['remote "gdrive_remote"']
     url = gdrive://1vghUT_qDPlR_MLbzvM6IzGXYI6oyz6T9

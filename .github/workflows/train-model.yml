@@ -1,0 +1,54 @@
+name: Train model with Dagger
+
+on:
+  push:
+    branches: [ main, workflows-katya ]
+  pull_request:
+    branches: [ main, workflows-katya ]
+
+jobs:
+  dagger-train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Install Dagger CLI
+        run: |
+          export BIN_DIR="$GITHUB_WORKSPACE/bin"
+          mkdir -p "$BIN_DIR"
+          curl -L https://dl.dagger.io/dagger/install.sh | sh
+          echo "$PWD/bin" >> "$GITHUB_PATH"
+          "$BIN_DIR/dagger" version
+
+      - name: Run Dagger workflow (preprocess, train, select, deploy, package)
+        working-directory: ci
+        run: |
+          "$GITHUB_WORKSPACE/bin/dagger" run go run .
+
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: model         
+          path: model 
+
+          
+  validate-model:
+    needs: dagger-train
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download trained model artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: model
+          path: ./model
+
+      - name: Run model validator
+        uses: lasselundstenjensen/itu-sdse-project-model-validator@main
+    
