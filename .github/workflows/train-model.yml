@@ -41,6 +41,8 @@ jobs:
 
       - name: Pull data from DVC remote
         run: dvc pull
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: .dvc/gdrive-sa.json
       - name: Install Dagger CLI
         run: |
           export BIN_DIR="$GITHUB_WORKSPACE/bin"
