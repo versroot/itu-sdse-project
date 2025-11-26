@@ -29,11 +29,16 @@ jobs:
       - name: Write DVC config.local
         run: |
           mkdir -p .dvc
-          cat > .dvc/gdrive-sa.json <<EOF
-          $GDRIVE_SA_JSON_BASE64
+          cat > .dvc/config.local <<EOF
+          ['remote "gdrive_remote"']
+              gdrive_client_id = $GDRIVE_CLIENT_ID
+              gdrive_client_secret = $GDRIVE_CLIENT_SECRET
+              gdrive_refresh_token = $GDRIVE_REFRESH_TOKEN
           EOF
         env:
-          GDRIVE_SA_JSON_BASE64: ${{ secrets.GDRIVE_SA_JSON_BASE64 }}
+          GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+          GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+          GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
 
       - name: Pull data from DVC remote
         run: dvc pull
