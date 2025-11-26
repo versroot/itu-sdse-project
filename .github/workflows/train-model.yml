@@ -32,10 +32,6 @@ jobs:
           cat > .dvc/gdrive-sa.json <<EOF
           $GDRIVE_SA_JSON_BASE64
           EOF
-          cat > .dvc/config.local <<EOF
-          ['remote "gdrive_remote"']
-              gdrive_service_account_json = .dvc/gdrive-sa.json
-          EOF
         env:
           GDRIVE_SA_JSON_BASE64: ${{ secrets.GDRIVE_SA_JSON_BASE64 }}
 
