@@ -29,12 +29,7 @@ jobs:
       - name: Write DVC config.local
         run: |
           mkdir -p .dvc
-          cat > .dvc/config.local <<EOF
-          ['remote "gdrive_remote"']
-              gdrive_client_id = $GDRIVE_CLIENT_ID
-              gdrive_client_secret = $GDRIVE_CLIENT_SECRET
-              gdrive_refresh_token = $GDRIVE_REFRESH_TOKEN
-          EOF
+          printf "['remote \"gdrive_remote\"']\n    gdrive_client_id = %s\n    gdrive_client_secret = %s\n    gdrive_refresh_token = %s\n" "$GDRIVE_CLIENT_ID" "$GDRIVE_CLIENT_SECRET" "$GDRIVE_REFRESH_TOKEN" > .dvc/config.local
         env:
           GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
           GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
