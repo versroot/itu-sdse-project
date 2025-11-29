@@ -2,7 +2,8 @@ package main
 
 import (
     "context"
-    "github.com/dagger/dagger/core"
+    "fmt"
+    "dagger.io/dagger"
 )
 
 func main() {
@@ -14,21 +15,46 @@ func main() {
     }
     defer client.Close()
 
-    // 1. Build Python environment
-    builder := client.Container().
+    container := client.Container().
         From("python:3.10").
         WithMountedDirectory("/src", client.Host().Directory(".")).
         WithWorkdir("/src")
 
-    // 2. Install deps
-    builder = builder.WithExec([]string{"pip", "install", "-r", "requirements.txt"})
+    container = container.WithExec([]string{
+        "pip", "install", "-r", "requirements.txt",
+    })
 
-    // 3. Run training
-    builder = builder.WithExec([]string{"python", "mlops_project/training.py"})
+    fmt.Println("Running preprocessing...")
+    container = container.WithExec([]string{
+        "python", "mlops_project/preprocessing.py",
+    })
 
-    // 4. Save model artifact
-    _, err = builder.File("models/model.joblib").Export(ctx, "model")
+    fmt.Println("Running training...")
+    container = container.WithExec([]string{
+        "python", "mlops_project/training.py",
+    })
+    
+    fmt.Println("Selecting best model...")
+    container = container.WithExec([]string{
+        "python", "mlops_project/model_select.py",
+    })
+    
+    fmt.Println("Deploying model...")
+    container = container.WithExec([]string{
+        "python", "mlops_project/deploy.py",
+    })
+
+    // Example: export Logistic Regression
+    _, err = container.File("artifacts/lead_model_lr.pkl").Export(ctx, "artifacts/lead_model_lr.pkl")
     if err != nil {
         panic(err)
     }
+
+    // Example: export XGBoost model
+    _, err = container.File("artifacts/lead_model_xgboost.json").Export(ctx, "artifacts/lead_model_xgboost.json")
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println("Pipeline complete!")
 }
