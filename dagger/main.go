@@ -50,6 +50,8 @@ func main() {
         "python", "mlops_project/deploy.py",
     })
 
+    fmt.Println(container.WithExec([]string{"ls", "-R", "/src"}).Stdout(ctx))
+
     fmt.Println("Exporting artifacts...")
 
     _, err = container.File("artifacts/lead_model_lr.pkl").Export(ctx, "artifacts/lead_model_lr.pkl")
