@@ -1,23 +1,24 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch, MagicMock
+import mlops_project.model_select as model_select
 
-from mlops_project.model_select import wait_until_ready
 
-
-@patch("mlops_project.model_select.MlflowClient")
-@patch("mlops_project.model_select.time.sleep")
-def test_wait_until_ready_polls_until_ready(mock_sleep, mock_mlflow_client):
+@patch("mlops_project.model_select.time.sleep")  # avoid real waiting
+@patch("mlops_project.model_select.MlflowClient")  # mock out MLflow
+def test_wait_until_ready_reaches_ready(mock_client_class, mock_sleep):
     """
-    Checks that wait_until_ready keeps polling until the model version is READY.
-    We don't care how many times exactly; just that we call get_model_version.
+    Tests that wait_until_ready stops polling when MLflow returns
+    a status of READY.
     """
+    mock_client = MagicMock()
+    mock_client_class.return_value = mock_client
 
-    mock_client_instance = MagicMock()
-    mock_mlflow_client.return_value = mock_client_instance
+    # Simulate two polls: first NOT ready, second READY
+    mock_client.get_model_version.side_effect = [
+        MagicMock(status="PENDING"),
+        MagicMock(status="READY"),
+    ]
 
-    mock_client_instance.get_model_version.return_value = MagicMock(
-        status="READY"
-    )
+    model_select.wait_until_ready("lead_model", 1)
 
-    wait_until_ready("lead_model", 1)
-
-    assert mock_client_instance.get_model_version.called
+    # The client should be called twice
+    assert mock_client.get_model_version.call_count == 2
