@@ -7,3 +7,4 @@ artifacts/
 .dvc/tmp
 .dvc/cache
 data/raw/raw_data.csv
+act
