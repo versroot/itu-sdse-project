@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import warnings
+import subprocess
 
 import joblib
 import numpy as np
@@ -11,6 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 max_date = "2024-01-31"
 min_date = "2024-01-01"
 
+root_folder= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 os.makedirs("artifacts", exist_ok=True)
 
@@ -32,8 +34,9 @@ def impute_missing_values(x, method="mean"):
         x = x.fillna(x.mode()[0])
     return x
 
-
-os.system("dvc pull")
+#fist let's try updating the dvc file and pulling the data, maybe it will work
+subprocess.run(["dvc", "update", "data/raw/raw_data.csv.dvc"], check=True, cwd=root_folder)
+subprocess.run(["dvc", "pull"], check=True, cwd=root_folder)
 
 data = pd.read_csv("data/raw/raw_data.csv")
 
