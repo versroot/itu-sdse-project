@@ -3,4 +3,8 @@ venv
 mlruns/
 __pycache__/
 artifacts/
-/data
+.dvc/config.local
+.dvc/tmp
+.dvc/cache
+data/raw/raw_data.csv
+act

@@ -1,4 +1,4 @@
 [core]
-    remote = gdrive_remote
-['remote "gdrive_remote"']
-    url = gdrive://1vghUT_qDPlR_MLbzvM6IzGXYI6oyz6T9
+    remote = raw_data.csv
+['remote "raw_data.csv"']
+    url = https://raw.githubusercontent.com/Jeppe-T-K/itu-sdse-project-data/refs/heads/main/raw_data.csv

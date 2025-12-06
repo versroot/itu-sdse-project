@@ -2,9 +2,7 @@ name: Train model with Dagger
 
 on:
   push:
-    branches: [main, workflows-katya]
   pull_request:
-    branches: [main, workflows-katya]
 
 jobs:
   dagger-train:
@@ -18,18 +16,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.22"
-      - name: Set environment variables for DVC GDrive
-        env:
-        GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
-        GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
-      - name: Install DVC dependencies (if your remote is Google Drive)
-        run: pip install dvc dvc-gdrive
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-        python-version: "3.10"
-      - name: Pull data from DVC remote
-        run: dvc pull
+
       - name: Install Dagger CLI
         run: |
           export BIN_DIR="$GITHUB_WORKSPACE/bin"
@@ -46,9 +33,10 @@ jobs:
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
         with:
-          name: model
-          path: model
+          name: model         
+          path: model 
 
+        
   validate-model:
     needs: dagger-train
     runs-on: ubuntu-latest
@@ -61,3 +49,4 @@ jobs:
 
       - name: Run model validator
         uses: lasselundstenjensen/itu-sdse-project-model-validator@main
+    
