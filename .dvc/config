@@ -1,4 +1,4 @@
 [core]
-    remote = gdrive_remote
-['remote "gdrive_remote"']
-    url = gdrive://1vghUT_qDPlR_MLbzvM6IzGXYI6oyz6T9
+    remote = github
+[remote "github"]
+    url = https://github.com/Jeppe-T-K/itu-sdse-project-data
