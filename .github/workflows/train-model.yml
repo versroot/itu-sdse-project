@@ -2,9 +2,7 @@ name: Train model with Dagger
 
 on:
   push:
-    branches: [ main, workflows-katya ]
   pull_request:
-    branches: [ main, workflows-katya ]
 
 jobs:
   dagger-train:
