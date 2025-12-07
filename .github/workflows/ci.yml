@@ -81,7 +81,8 @@ jobs:
       - name: Run tests in container
         run: >
           docker run --rm 
-          --memory="2g" 
+          --memory="4g"
+          --memory-swap="4g" 
           -e MLFLOW_TRACKING_URI="file:/opt/mlruns" 
           --workdir /app 
           ${{ env.IMAGE }} 
