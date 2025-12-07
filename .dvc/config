@@ -1,3 +1,8 @@
+# as agreed with TAs, we are using DVC remote to point to raw data CSV file in the original Github repo
+# we tried to use DVC with gdrive, but all of us failed to marry them together, it "works on my machine", but not in github actions
+# the reason is known authentication issue
+# so we decided to proceed with this workaround to unblock ourselves and move forward with the project, because authentication wiith gdrive is out of scope of the course
+
 [core]
     remote = raw_data.csv
 ['remote "raw_data.csv"']
