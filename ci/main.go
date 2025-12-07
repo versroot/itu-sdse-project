@@ -1,3 +1,9 @@
+// dagger pipeline
+// preprocessing -> training -> model_select -> deploy -> package model -> export model
+// these steps mirror the mlops_project module structure in mlops_project/modelling/
+// so essentially calling each module's main entry point in sequence
+// finally exporting the model artifacts to ./model in repo root 
+
 package main
 
 import (
@@ -9,9 +15,13 @@ import (
 )
 
 func main() {
+
+	// initialization of Dagger client
 	ctx := context.Background()
 
-	client, err := dagger.Connect(ctx, dagger.WithLogOutput(os.Stderr))
+	client, err := dagger.Connect(ctx, dagger.WithLogOutput(os.Stderr)) 
+	
+	// error handling
 	if err != nil {
 		log.Fatalf("failed to connect to Dagger: %v", err)
 	}
@@ -25,6 +35,8 @@ func main() {
 
 	// sync deps (cheap if already done in Dockerfile)
 	cont = cont.WithExec([]string{"bash", "-lc", "uv sync"})
+    
+    // !actual pipeline steps
 
 	// 1) preprocessing
 	cont = mustRunStep(ctx, cont, "preprocessing",
@@ -45,7 +57,7 @@ func main() {
 	// 5) package model into /app/model
 	cont = mustRunStep(ctx, cont, "package_model",
 		"mkdir -p model && "+
-			"cp artifacts/lead_model_lr.pkl model/model.pkl && "+
+			"cp artifacts/lead_model_lr.pkl model/model.pkl && "+ 
 			"cp artifacts/columns_list.json model/columns_list.json && "+
 			"cp artifacts/scaler.pkl model/scaler.pkl",
 	)
