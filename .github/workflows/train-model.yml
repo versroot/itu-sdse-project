@@ -26,17 +26,16 @@ jobs:
           "$BIN_DIR/dagger" version
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
-        working-directory: ci
+        working-directory: ci # we set up to use /ci as dir, so no reason for dagger/main.go to exist
         run: |
           "$GITHUB_WORKSPACE/bin/dagger" run go run .
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
         with:
-          name: model         
-          path: model 
+          name: model
+          path: model
 
-        
   validate-model:
     needs: dagger-train
     runs-on: ubuntu-latest
@@ -49,4 +48,3 @@ jobs:
 
       - name: Run model validator
         uses: lasselundstenjensen/itu-sdse-project-model-validator@main
-    

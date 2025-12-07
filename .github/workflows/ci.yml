@@ -1,9 +1,8 @@
 name: CI
-
+# great way to run on every push to any branch
 on:
   push:
   pull_request:
-
 
 # One simple image name & tag
 env:
@@ -85,6 +84,7 @@ jobs:
       - name: Run tests in container
         run: |
           docker run --rm \
+            --memory="2g" \ 
             -e MLFLOW_TRACKING_URI="file:/opt/mlruns" \
             --workdir /app \
             ${{ env.IMAGE }} \
@@ -92,3 +92,5 @@ jobs:
               echo "== Pytest =="
               uv run pytest -vv --maxfail=1
             '
+
+# added mem = 2g to avoid OOM kills on Github actions runners
