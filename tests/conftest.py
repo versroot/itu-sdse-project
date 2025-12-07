@@ -9,7 +9,8 @@ This file adds a small compatibility function before
 """
 
 import importlib
-
+import matplotlib
+matplotlib.use('Agg')
 
 def _ensure_sklearn_check_cv():
     try:
