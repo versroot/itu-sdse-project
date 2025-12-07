@@ -54,15 +54,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run ruff in container
-        run: |
-          docker run --rm \
-            -e MLFLOW_TRACKING_URI="file:/opt/mlruns" \
-            --workdir /app \
-            ${{ env.IMAGE }} \
-            bash -lc '
-              echo "== Ruff =="
-              uv run ruff check .
-            '
+        run: >
+          docker run --rm 
+          -e MLFLOW_TRACKING_URI="file:/opt/mlruns" 
+          --workdir /app 
+          ${{ env.IMAGE }} 
+          bash -lc 'echo "== Ruff ==" && uv run ruff check .'
 
   test:
     name: Run pytest (inside container)
@@ -82,15 +79,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run tests in container
-        run: |
-          docker run --rm \
-            --memory="2g" \ 
-            -e MLFLOW_TRACKING_URI="file:/opt/mlruns" \
-            --workdir /app \
-            ${{ env.IMAGE }} \
-            bash -lc '
-              echo "== Pytest =="
-              uv run pytest -vv --maxfail=1
-            '
+        run: >
+          docker run --rm 
+          --memory="2g" 
+          -e MLFLOW_TRACKING_URI="file:/opt/mlruns" 
+          --workdir /app 
+          ${{ env.IMAGE }} 
+          bash -lc 'echo "== Pytest ==" && uv run pytest -vv --maxfail=1'
 
 # added mem = 2g to avoid OOM kills on Github actions runners
