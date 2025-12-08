@@ -35,6 +35,7 @@ dependencies = [
   "mlflow==2.18.0",
   "xgboost==2.1.1",
   "pytest>=9.0.1",
+  "pytest-xdist>=3.5.0",
 ]
 
 [tool.ruff]
