@@ -83,14 +83,18 @@ jobs: # 3 jobs: build-image, lint, test
 
       - name: Run tests in container # actual test step
         run: >
-          docker run --rm 
-          --memory="8g" 
-          --memory-swap="8g" 
-          -e MLFLOW_TRACKING_URI="file:/opt/mlruns" 
-          --workdir /app 
-          ${{ env.IMAGE }} 
-          bash -lc 'echo "== Pytest ==" && uv run pytest -vv --maxfail=1 -n 0'
+          run: >
+            docker run --rm 
+            --memory="8g" 
+            --memory-swap="8g" 
+            -e MLFLOW_TRACKING_URI="file:/opt/mlruns" 
+            -e MPLBACKEND=Agg 
+            --workdir /app 
+            ${{ env.IMAGE }} 
+            bash -lc 'echo "== Pytest ==" && uv run pytest -vv --maxfail=1 --import-mode=importlib'
 
 # added mem = 8g to avoid OOM kills on Github actions runners
-# mem 8 gb sometimes helps; inconsistent
-# disabled parallel tests -n 0 as attempt to mitigate OOM
+# mem 8 gb sometimes helps; inconsistent FAIL
+# disabled parallel tests -n 0 as attempt to mitigate OOM FAIL
+# MPLBACKEND=Agg makes matplotlib work in headless mode (no GUI)
+# --import-mode=importlib is import mode for pytest, allows to import modules in a more robust way
