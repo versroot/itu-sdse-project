@@ -82,16 +82,12 @@ jobs: # 3 jobs: build-image, lint, test
 
       - name: Run tests file-by-file
         run: >
-          find tests -name 'test_*.py' -type f | while read test_file; do
-            docker run --rm
-            --memory="4g"
-            --memory-swap="4g"
-            -e MLFLOW_TRACKING_URI="file:/opt/mlruns"
-            -e MPLBACKEND=Agg
-            -e MPLCONFIGDIR=/tmp/matplotlib
-            --workdir /app
-            ${{ env.IMAGE }}
-            bash -lc "uv run pytest $test_file -vv --maxfail=1 --import-mode=importlib" || exit 1
+          for test_file in tests/test_*.py tests/unit/test_*.py tests/integration/test_*.py; do
+          docker run --rm --memory="4g" --memory-swap="4g"
+          -e MLFLOW_TRACKING_URI="file:/opt/mlruns"
+          -e MPLBACKEND=Agg -e MPLCONFIGDIR=/tmp/matplotlib
+          --workdir /app ${{ env.IMAGE }}
+          bash -lc "uv run pytest $test_file -vv --maxfail=1 --import-mode=importlib" || exit 1;
           done
 
       # test: # JOB3; run pytest inside the container; reports test results but does not fail the job
