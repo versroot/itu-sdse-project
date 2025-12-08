@@ -1,17 +1,17 @@
 // dagger pipeline
 // preprocessing -> training -> model_select -> deploy -> package model -> export model
-// these steps mirror the mlops_project module structure in mlops_project/modelling/
+// these steps mirror the mlops_project module structure in mlops_project/modeling/
 // so essentially calling each module's main entry point in sequence
 // finally exporting the model artifacts to ./model in repo root 
 
-package main
+package main // declares that this is Go executable (not a library)
 
 import (
-	"context"
-	"log"
-	"os"
+	"context" // to create root context for Dagger
+	"log" // for logging
+	"os" // for error output
 
-	"dagger.io/dagger"
+	"dagger.io/dagger" // Dagger SDK for container 
 )
 
 func main() {
@@ -27,18 +27,20 @@ func main() {
 	}
 	defer client.Close()
 
-	// repo root as build context
-	src := client.Host().Directory("..")
+	// repo root as build context (directory) 
+	src := client.Host().Directory("..") // host is current dir, ".." goes one level up from ci/ to repo root
 
-	// build Dockerfile in repo root
+	// create container from Dockerfile in repo root, set workdir to /app
 	cont := src.DockerBuild().WithWorkdir("/app")
 
 	// sync deps (cheap if already done in Dockerfile)
-	cont = cont.WithExec([]string{"bash", "-lc", "uv sync"})
+	cont = cont.WithExec([]string{"bash", "-lc", "uv sync"}) // -lc load shell and run command; uv sync installs dependencies from pyproject.toml
     
     // !actual pipeline steps
 
 	// 1) preprocessing
+	// uv run automatically: activates venv, runs python with all packages
+
 	cont = mustRunStep(ctx, cont, "preprocessing",
 		"uv run python -m mlops_project.preprocessing")
 
@@ -70,7 +72,7 @@ func main() {
 
 	log.Println("Dagger pipeline finished successfully. Model exported to ./model in repo root.")
 }
-
+// helper function to run a pipeline step and handle errors
 func mustRunStep(ctx context.Context, c *dagger.Container, name, cmd string) *dagger.Container {
 	log.Printf("\n=== Running step: %s ===\n", name)
 	next := c.WithExec([]string{"bash", "-lc", cmd})
