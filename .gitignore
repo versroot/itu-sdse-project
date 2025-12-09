@@ -8,3 +8,4 @@ artifacts/
 .dvc/cache
 data/raw/raw_data.csv
 act
+notebooks/plots/
