@@ -12,4 +12,5 @@ def test_deploy_module_import(mock_wait, mock_client):
 
     import mlops_project.deploy
 
-    mock_client.get_model_version.assert_called()
+    mock_client.get_model_version.assert_not_called()
+
