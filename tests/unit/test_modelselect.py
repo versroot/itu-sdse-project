@@ -14,7 +14,7 @@ def test_wait_until_ready_reaches_ready(mock_client_class, mock_sleep):
 
     # Simulate two polls: first NOT ready, second READY
     mock_client.get_model_version.side_effect = [
-        MagicMock(status="PENDING"),
+        MagicMock(status="PENDING_REGISTRATION"),
         MagicMock(status="READY"),
     ]
 
