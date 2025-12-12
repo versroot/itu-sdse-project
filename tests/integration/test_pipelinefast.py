@@ -17,12 +17,14 @@ def test_pipeline_fast(
     monkeypatch
 ):
     """
-    FAST integration test: pipeline completes end-to-end with mocks.
-    No real training, no real MLflow, no real artifacts needed.
+    Fast integration test for the full pipeline.
+
+    This test runs preprocessing, training, model selection, and deployment
+    end-to-end using mocks to avoid heavy computation and external services.
     """
     monkeypatch.chdir(tmp_path)
 
-    # --- Fake CSV data (used by both preprocessing and training)
+    # Synthetic dataset used across pipeline steps
     df = pd.DataFrame({
         "date_part": ["2024-01-05", "2024-01-06"],
         "source": ["signup", "signup"],
@@ -35,10 +37,10 @@ def test_pipeline_fast(
         "feature_num": [1.0, 2.0],
     })
 
+
     mock_read_preprocessing.return_value = df.copy()
     mock_read_training.return_value = df.copy()
 
-    # --- Fake MLflow behaviors
     mock_mlflow.get_experiment_by_name.return_value = MagicMock(experiment_id=123)
     mock_mlflow.search_runs.return_value = MagicMock(
         iloc={0: {"metrics.f1_score": 0.9, "run_id": "123"}}
@@ -46,30 +48,44 @@ def test_pipeline_fast(
     mock_mlflow.start_run.return_value.__enter__.return_value = MagicMock()
     mock_client.get_model_version.return_value = {"current_stage": "Staging"}
 
+    # ------------------------------------------------------------------
+    # FIX APPLIED:
+    # Training runs in a subprocess and cannot see mocks from this test.
+    # The training script expects a real file at:
+    #   ./artifacts/train_data_gold.csv
+    # To prevent FileNotFoundError, the file is created explicitly here.
+    # ------------------------------------------------------------------
+    artifacts_dir = tmp_path / "artifacts"
+    artifacts_dir.mkdir(exist_ok=True)
+
+    train_gold = artifacts_dir / "train_data_gold.csv"
+    df.to_csv(train_gold, index=False)
+
     p1 = subprocess.run(
         [sys.executable, "-m", "mlops_project.preprocessing"],
         capture_output=True,
-        text=True
+        text=True,
     )
     assert p1.returncode == 0
 
     p2 = subprocess.run(
         [sys.executable, "-m", "mlops_project.training"],
         capture_output=True,
-        text=True
+        text=True,
     )
     assert p2.returncode == 0
 
     p3 = subprocess.run(
         [sys.executable, "-m", "mlops_project.model_select"],
         capture_output=True,
-        text=True
+        text=True,
     )
     assert p3.returncode == 0
 
     p4 = subprocess.run(
         [sys.executable, "-m", "mlops_project.deploy"],
         capture_output=True,
-        text=True
+        text=True,
     )
     assert p4.returncode == 0
+
