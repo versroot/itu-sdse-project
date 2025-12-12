@@ -26,17 +26,16 @@ def test_pipeline_fast(
 
     # Synthetic dataset used across pipeline steps
     df = pd.DataFrame({
-        "date_part": ["2024-01-05", "2024-01-06"],
-        "source": ["signup", "signup"],
-        "lead_indicator": [1, 0],
-        "lead_id": ["1", "2"],
-        "customer_code": ["c1", "c2"],
-        "customer_group": ["A", "B"],
-        "onboarding": ["X", "Y"],
-        "bin_source": ["signup", "signup"],
-        "feature_num": [1.0, 2.0],
+        "date_part": ["2024-01-05"] * 20,
+        "source": ["signup"] * 20,
+        "lead_indicator": [0, 1] * 10,
+        "lead_id": [str(i) for i in range(20)],
+        "customer_code": ["c"] * 20,
+        "customer_group": ["A", "B"] * 10,
+        "onboarding": ["X", "Y"] * 10,
+        "bin_source": ["signup"] * 20,
+        "feature_num": list(range(20)),
     })
-
 
     mock_read_preprocessing.return_value = df.copy()
     mock_read_training.return_value = df.copy()
