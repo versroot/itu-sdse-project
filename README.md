@@ -46,8 +46,8 @@ Vivien Ivett Pribula
 │ └── columns_list.json <- Feature names for inference
 │
 ├── notebooks/
-│ ├── 0.01_Data_exploration.ipynb <- Exploratory data analysis
-│ └── original_files/ <- Legacy notebook files (archived)
+│ └──0.01_Data_exploration.ipynb <- Exploratory data analysis
+│ 
 │
 ├── tests/ <- Test suite (pytest)
 │ ├── test_pipeline.py <-
