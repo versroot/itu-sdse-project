@@ -1,73 +1,90 @@
-# ITU BDS MLOPS'25 - Project
+# The project is part of Data Science in Production: MLOps and Software Engineering [BSDSPMS1KU] at IT University of Copenhagen
 
+<a href="https://github.com/lasselundstenjensen/itu-sdse-project">
+    The original project description />
+</a>
 
-# FROM HERE WE WILL HAVE OUR OWN PROJECT DESCRIPTION!
+# Team: Git Gut
 
-# Exam Project for Data Science in Production: MLOps and Software Engineering for team Git Gut 
+# Team members:
 
-Note: We wanted to implement DVC with GoogleDrive connection, but dues to an authentication issue we werew not able to use this approach - it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub. 
+Alexandru Jizdan,
+Kateryna Tkachuk,
+Mykyta Taranov,
+Vivien Ivett Pribula
 
-## Team members:
-will be added later
+## Project structure
+
+├── .github/
+│ └── workflows/  
+│ ├── ci.yml <- CI pipeline: build Docker image, lint with ruff, run tests
+│ └── train-model.yml <- Training pipeline: runs Dagger workflow, uploads model artifacts
+│
+├── bin/
+│ └── dagger <- Dagger CLI binary
+│  
+├── ci/
+│ ├── main.go <- Dagger pipeline
+│ ├── go.mod <- Go module dependencies for Dagger
+│ └── go.sum <- Dependency checksums
+│
+├── data/
+│ └── raw/
+│ │ └── raw_data.csv.dvc <- DVC metadata for data versioning
+│
+├── mlops_project/ <- Core ML pipeline modules
+│ ├── **init**.py
+│ ├── preprocessing.py <- Data loading, cleaning, feature engineering, scaling
+│ ├── training.py <- Model training loop (LogReg, RF, XGBoost) with MLflow tracking
+│ ├── model_select.py <- Selects best model from experiments, registers in MLflow
+│ └── deploy.py <- Transitions model to Staging in MLflow registry
+│
+├── model/ <- Trained model artifacts (exported by pipeline)
+│ ├── model.pkl <- Serialized best model
+│ ├── scaler.pkl <- Fitted MinMaxScaler
+│ └── columns_list.json <- Feature names for inference
+│
+├── notebooks/
+│ ├── 0.01_Data_exploration.ipynb <- Exploratory data analysis
+│ └── original_files/ <- Legacy notebook files (archived)
+│
+├── tests/ <- Test suite (pytest)
+│ ├── test_pipeline.py <-
+│ ├── test_preprocessing_unit.py <-
+│ ├── test_training.py <-
+│ ├── unit/ <-
+│ │ ├── test_deploy.py
+│ │ ├── test_modelselect.py
+│ │ ├── test_preprocessingmock.py
+│ │ └── test_trainingruns.py
+│ └── integration/ <-
+│ └── test_pipelinefast.py
+│
+├── Dockerfile <- Production container image
+├── pyproject.toml <- Project metadata, dependencies, tool configs (ruff, pytest)
+├── uv.lock <- Locked dependency versions
+├── start_container.sh <- Helper script to launch interactive Docker container
+└── README.md <- Project structure and instruction how to run the code
+
+# How to run the code and generate the model artifact
+
+Github workflow triggered automatically on every Push or Pull request.
+
+Manual Trigger in GitHub Actions is available for contributors.
+
+Actions -> Train model with Dagger -> Run workflow -> main
+Model artifact stored in "Summary" after workflow is done.
+
+-- locally: TBD
+
+# Refferences:
+
+This repository is a fork from [Lasse Lund Sten Jensen's original project repo](https://github.com/lasselundstenjensen/itu-sdse-project).
+
+---
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
-sdse
-
-## Project Organization
-
-```
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         mlops_project and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── source   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes mlops_project a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
-```
-
---------
-
-# How to use our code
-will be added later
-
-# Refferences: 
-This repository is originated from [Lasse Lund Sten Jensen's original project repo](https://github.com/lasselundstenjensen/itu-sdse-project). 
+Note: We wanted to implement DVC with GoogleDrive connection, but dues to an authentication issue we werew not able to use this approach - it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub.
