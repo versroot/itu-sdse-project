@@ -14,54 +14,57 @@ Mykyta Taranov,
 Vivien Ivett Pribula
 
 ## Project structure
-need to be cleaned
 
-
-```
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+├── .github/
+│ └── workflows/  
+│ ├── ci.yml <- CI pipeline: build Docker image, lint with ruff, run tests
+│ └── train-model.yml <- Training pipeline
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+├── bin/
+│ └── dagger <- Dagger CLI binary
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── ci/
+│ ├── main.go <- Dagger pipeline
+│ ├── go.mod <- Go module dependencies for Dagger
+│ └── go.sum <- Dependency checksums
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+├── data/
+│ └── raw/
+│ │ └── raw_data.csv.dvc <- DVC metadata for data versioning
 │
-├── pyproject.toml     <- Project configuration file with package metadata for
-│                         mlops_project and configuration for tools like black
+├── mlops_project/ <- Core ML pipeline modules
+│ ├── **init**.py
+│ ├── preprocessing.py <- Data loading, cleaning, feature engineering, scaling
+│ ├── training.py <- Model training loop (LogReg, RF, XGBoost) with MLflow tracking
+│ ├── model_select.py <- Selects best model from experiments, registers in MLflow
+│ └── deploy.py <- Transitions model to Staging in MLflow registry
 │
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+├── model/ <- Trained model artifacts (exported by pipeline)
+│ ├── model.pkl <- Serialized best model
+│ ├── scaler.pkl <- Fitted MinMaxScaler
+│ └── columns_list.json <- Feature names for inference
 │
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
+├── notebooks/
+│ ├── 0.01_Data_exploration.ipynb <- Exploratory data analysis
+│ └── original_files/ <- Legacy notebook files (archived)
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
+├── tests/ <- Test suite (pytest)
+│ ├── test_pipeline.py <-
+│ ├── test_preprocessing_unit.py <-
+│ ├── test_training.py <-
+│ ├── unit/ <-
+│ │ ├── test_deploy.py
+│ │ ├── test_modelselect.py
+│ │ ├── test_preprocessingmock.py
+│ │ └── test_trainingruns.py
+│ └── integration/ <-
+│ └── test_pipelinefast.py
 │
-├── setup.cfg          <- Configuration file for flake8
-│
-└── source   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes mlops_project a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling
-    │   ├── __init__.py
-    │   ├── predict.py          <- Code to run model inference with trained models
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
-```
+├── Dockerfile <- Production container image
+├── pyproject.toml <- Project metadata, dependencies, tool configs (ruff, pytest)
+├── uv.lock <- Locked dependency versions
+├── start_container.sh <- Helper script to launch interactive Docker container
+└── README.md <- Project structure and instruction how to run the code
 
 # How to run the code and generate the model artifact
 
