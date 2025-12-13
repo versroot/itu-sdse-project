@@ -8,9 +8,9 @@
 
 # Team members:
 
-Alexandru Jizdan,
-Kateryna Tkachuk,
-Mykyta Taranov,
+Alexandru Jizdan, <br>
+Kateryna Tkachuk, <br>
+Mykyta Taranov, <br>
 Vivien Ivett Pribula
 
 ## Project structure
@@ -90,4 +90,7 @@ This repository is a fork from [Lasse Lund Sten Jensen's original project repo](
 </a>
 
 Note: We wanted to implement DVC with GoogleDrive connection, but dues to an authentication issue we werew not able to use this approach - it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub.
+
+```
+
 ```
