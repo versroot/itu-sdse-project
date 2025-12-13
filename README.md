@@ -50,16 +50,20 @@ Vivien Ivett Pribula
 │ 
 │
 ├── tests/ <- Test suite (pytest)
-│ ├── test_pipeline.py <-
-│ ├── test_preprocessing_unit.py <-
-│ ├── test_training.py <-
-│ ├── unit/ <-
-│ │ ├── test_deploy.py
-│ │ ├── test_modelselect.py
-│ │ ├── test_preprocessingmock.py
-│ │ └── test_trainingruns.py
-│ └── integration/ <-
-│ └── test_pipelinefast.py
+│ ├── unit/ <- Unit tests
+│ │ ├── test_deploy.py <- Deployment function tests
+│ │ ├── test_deployimport.py <- Import smoke test
+│ │ ├── test_modelselect.py <- Model selection function tests
+│ │ ├── test_modelselectimport.py <- Import smoke test
+│ │ ├── test_preprocessing_unit.py <- Preprocessing function tests
+│ │ ├── test_preprocessingimport.py <- Import smoke test
+│ │ ├── test_training.py <- Training utility function tests
+│ │ ├── test_trainingimport.py <- Import smoke test
+│ │ └── test_trainingruns.py <- Module execution smoke test
+│ └── integration/ <- Integration tests
+│   ├── test_pipeline.py <- End-to-end pipeline test
+│   ├── test_pipelinefast.py <- Fast pipeline test with mocks
+│   └── test_preprocessingmock.py <- Preprocessing script execution test
 │
 ├── Dockerfile <- Production container image
 ├── pyproject.toml <- Project metadata, dependencies, tool configs (ruff, pytest)
