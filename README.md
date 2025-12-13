@@ -18,11 +18,11 @@ Vivien Ivett Pribula
 ├── .github/
 │ └── workflows/  
 │ ├── ci.yml <- CI pipeline: build Docker image, lint with ruff, run tests
-│ └── train-model.yml <- Training pipeline
+│ └── train-model.yml <- Training pipeline: runs Dagger workflow, uploads model artifacts
 │
 ├── bin/
 │ └── dagger <- Dagger CLI binary
-│
+│  
 ├── ci/
 │ ├── main.go <- Dagger pipeline
 │ ├── go.mod <- Go module dependencies for Dagger
@@ -68,11 +68,14 @@ Vivien Ivett Pribula
 
 # How to run the code and generate the model artifact
 
-TBD, need workflow_dispatch
+Github workflow triggered automatically on every Push or Pull request.
 
-- automatically, with Pull request
-- in github actions [for contributors]
-- locally
+Manual Trigger in GitHub Actions is available for contributors.
+
+Actions -> Train model with Dagger -> Run workflow -> main
+Model artifact stored in "Summary" after workflow is done.
+
+-- locally: TBD
 
 # Refferences:
 
