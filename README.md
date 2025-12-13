@@ -1,7 +1,7 @@
 # The project is part of Data Science in Production: MLOps and Software Engineering [BSDSPMS1KU] at IT University of Copenhagen
 
 <a href="https://github.com/lasselundstenjensen/itu-sdse-project">
-    The original project description />
+    The original project description
 </a>
 
 # Team: Git Gut
@@ -15,14 +15,15 @@ Vivien Ivett Pribula
 
 ## Project structure
 
+```
 ├── .github/
-│ └── workflows/  
+│ └── workflows/
 │ ├── ci.yml <- CI pipeline: build Docker image, lint with ruff, run tests
 │ └── train-model.yml <- Training pipeline: runs Dagger workflow, uploads model artifacts
 │
 ├── bin/
 │ └── dagger <- Dagger CLI binary
-│  
+│
 ├── ci/
 │ ├── main.go <- Dagger pipeline
 │ ├── go.mod <- Go module dependencies for Dagger
@@ -65,6 +66,7 @@ Vivien Ivett Pribula
 ├── uv.lock <- Locked dependency versions
 ├── start_container.sh <- Helper script to launch interactive Docker container
 └── README.md <- Project structure and instruction how to run the code
+```
 
 # How to run the code and generate the model artifact
 
@@ -88,3 +90,4 @@ This repository is a fork from [Lasse Lund Sten Jensen's original project repo](
 </a>
 
 Note: We wanted to implement DVC with GoogleDrive connection, but dues to an authentication issue we werew not able to use this approach - it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub.
+```
