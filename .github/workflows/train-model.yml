@@ -3,6 +3,7 @@ name: Train model with Dagger
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   dagger-train:

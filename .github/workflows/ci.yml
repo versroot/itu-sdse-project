@@ -3,6 +3,7 @@ name: CI # label shown in Github actions
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 # GHCR - GitHub Container Registry: docker registry integrated with Github
 env: # define global env variables
