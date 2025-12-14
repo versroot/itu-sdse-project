@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
         run: |
-          cd ci && go run main.go
+          dagger run cd ci && go run main.go
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
