@@ -25,9 +25,7 @@ Vivien Ivett Pribula
 │ └── dagger <- Dagger CLI binary
 │
 ├── ci/
-│ ├── main.go <- Dagger pipeline
-│ ├── go.mod <- Go module dependencies for Dagger
-│ └── go.sum <- Dependency checksums
+│ └── main.go <- Dagger pipeline
 │
 ├── data/
 │ └── raw/
@@ -66,6 +64,8 @@ Vivien Ivett Pribula
 │   └── test_preprocessingmock.py <- Preprocessing script execution test
 │
 ├── Dockerfile <- Production container image
+├── go.mod <- Go module dependencies for Dagger
+├── go.sum <- Dependency checksums
 ├── pyproject.toml <- Project metadata, dependencies, tool configs (ruff, pytest)
 ├── uv.lock <- Locked dependency versions
 ├── start_container.sh <- Helper script to launch interactive Docker container
@@ -97,7 +97,21 @@ After the workflow completes:
    - `scaler.pkl` - Fitted MinMaxScaler
    - `columns_list.json` - Feature names for inference
 
--- locally: TBD
+### Local workflow with `dagger`
+
+For local workflow running the following dependencies has to be the following ones:
+```
+dagger >= v0.19.6
+go version >= go1.25.0
+Python >= 3.10.0
+Docker >= 24.0
+```
+
+To run the training workflow, run:
+```
+dagger run go run ./ci/main.go
+```
+This will run the whole pipline, and results in model artifacts in the `./model` folder. 
 
 # Refferences:
 
