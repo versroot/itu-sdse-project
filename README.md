@@ -109,7 +109,7 @@ Docker >= 24.0
 
 To run the training workflow, run:
 ```
-dagger run go run ./ci/main.go
+cd ci && dagger run go run ./main.go
 ```
 This will run the whole pipline, and results in model artifacts in the `./model` folder. 
 
