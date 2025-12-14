@@ -1,9 +1,12 @@
 name: Train model with Dagger
 
 on:
-  push:
-  pull_request:
+  # push:
+  # pull_request:
   workflow_dispatch:
+  workflow_run:
+        workflows: ["CI"]
+        types: ["completed"]
 
 jobs:
   dagger-train:

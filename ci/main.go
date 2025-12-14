@@ -7,9 +7,10 @@
 package main // declares that this is Go executable (not a library)
 
 import (
-	"context" // to create root context for Dagger
-	"log"     // for logging
-	"os"      // for error output
+	"context"       // to create root context for Dagger
+	"log"           // for logging
+	"os"            // for error output
+	"path/filepath" // for filepath.Join
 
 	"dagger.io/dagger" // Dagger SDK for container
 )
@@ -27,12 +28,38 @@ func main() {
 	}
 	defer client.Close()
 
-	// repo root as build context (directory)
-	src := client.Host().Directory(".", dagger.HostDirectoryOpts{
+	// Get absolute path to repo root (where Dockerfile is located)
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatalf("failed to get working directory: %v", err)
+	}
+
+	var repoRoot string
+	// Check if we're in ci/ directory or repo root
+	if filepath.Base(wd) == "ci" {
+		// We're in ci/, go up one level
+		repoRoot = filepath.Dir(wd)
+	} else {
+		// We're already at repo root
+		repoRoot = wd
+	}
+
+	// check Dockerfile exists at repo root
+	dockerfilePath := filepath.Join(repoRoot, "Dockerfile")
+	if _, err := os.Stat(dockerfilePath); err != nil {
+		log.Fatalf("Dockerfile not found at %s: %v", dockerfilePath, err)
+	}
+
+	// Convert to absolute path (required by Dagger)
+	repoRootAbs, err := filepath.Abs(repoRoot)
+	if err != nil {
+		log.Fatalf("failed to get absolute path: %v", err)
+	}
+
+	// repo root as build context (directory) - use absolute path for local pipeline
+	src := client.Host().Directory(repoRootAbs, dagger.HostDirectoryOpts{
 		Exclude: []string{".venv", "venv", "__pycache__", "mlruns", "artifacts"},
 	})
-	// host is current dir, ".." goes one level up from ci/ to repo root
-
 	// create container from Dockerfile in repo root, set workdir to /app
 	cont := src.DockerBuild().WithWorkdir("/app")
 
