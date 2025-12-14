@@ -30,9 +30,8 @@ jobs:
           "$BIN_DIR/dagger" version
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
-        working-directory: ci # we set up to use /ci as dir, so no reason for dagger/main.go to exist
         run: |
-          "$GITHUB_WORKSPACE/bin/dagger" run go run .
+          "$GITHUB_WORKSPACE/bin/dagger" run sh -c "cd ci && go run main.go"
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
