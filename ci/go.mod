@@ -1,8 +1,8 @@
 module github.com/versroot/itu-sdse-project/ci
 
-go 1.25.4
+go 1.24.0
 
-require dagger.io/dagger v0.19.6
+require dagger.io/dagger v0.19.8
 
 require (
 	github.com/99designs/gqlgen v0.17.81 // indirect
