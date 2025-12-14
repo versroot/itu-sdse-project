@@ -30,7 +30,8 @@ jobs:
           "$BIN_DIR/dagger" version
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
-        run: dagger run sh -c "cd ci && go run main.go"
+        run: |
+          cd ci && go run main.go
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
