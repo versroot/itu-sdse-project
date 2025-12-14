@@ -2,7 +2,7 @@ name: CI # label shown in Github actions
 # great way to run on every push to any branch, not just main
 on:
   push:
-  pull_request:
+  # pull_request: removed to help with auto-triggering the train-model workflow
   workflow_dispatch:
 
 # GHCR - GitHub Container Registry: docker registry integrated with Github
