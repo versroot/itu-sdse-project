@@ -81,7 +81,38 @@ Manual Trigger in GitHub Actions is available for contributors.
 Actions -> Train model with Dagger -> Run workflow -> main
 Model artifact stored in "Summary" after workflow is done.
 
--- locally: TBD
+## Local generation
+### Prerequisites
+
+- Python 3.10
+- `uv` package manager (install with: `curl -LsSf https://astral.sh/uv/install.sh | sh`)
+
+### Steps
+1. Install dependencies from `pyproject.toml`
+uv sync
+
+2. Update data from DVC
+dvc update daata/raw/raw_data.csv.dvc
+
+3. Set MLflow tracking
+export MLFLOW_TRACKING_URI="file:./mlruns"
+
+4. Generate artifacts with preprocessing
+uv run python -m mlops_project.preprocessing
+
+5. Run training, model_selection and deployment
+uv run python -m mlops_project.training
+uv run python -m mlops_project.model_select
+uv run python -m mlops_project.deploy
+
+6. Package final model artifacts
+mkdir -p model
+cp artifacts/lead_model_lr.pkl model/model.pkl
+cp artifacts/columns_list.json model/columns_list.json
+cp artifacts/scaler.pkl model/scaler.pkl
+
+7. Verfy artifacts
+ls -lh model/
 
 # Refferences:
 
