@@ -74,12 +74,28 @@ Vivien Ivett Pribula
 
 # How to run the code and generate the model artifact
 
-Github workflow triggered automatically on every Push or Pull request.
+## GitHub Actions Workflow
 
-Manual Trigger in GitHub Actions is available for contributors.
+The training workflow runs automatically after the CI pipeline completes successfully, or can be triggered manually.
 
-Actions -> Train model with Dagger -> Run workflow -> main
-Model artifact stored in "Summary" after workflow is done.
+### Automatic Trigger
+The training workflow (`train-model.yml`) is automatically triggered when the CI workflow completes successfully on the main branch.
+
+### Manual Trigger
+To manually trigger the training workflow:
+1. Go to **Actions** tab in GitHub
+2. Select **"Train model with Dagger"** workflow
+3. Click **"Run workflow"**
+4. Select the branch (default: `main`) and click **"Run workflow"**
+
+### Accessing Model Artifacts
+After the workflow completes:
+1. Navigate to the completed workflow run
+2. Scroll down to the **"Artifacts"** section
+3. Download the `model` artifact which contains:
+   - `model.pkl` - Serialized best model
+   - `scaler.pkl` - Fitted MinMaxScaler
+   - `columns_list.json` - Feature names for inference
 
 -- locally: TBD
 
