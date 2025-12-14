@@ -79,9 +79,9 @@ Vivien Ivett Pribula
 The training workflow runs automatically after the CI pipeline completes successfully, or can be triggered manually.
 
 ### Automatic Trigger
-The training workflow (`train-model.yml`) is automatically triggered when the CI workflow completes successfully on the main branch.
+The training workflow (`train-model.yml`) is automatically triggered when the CI workflow completes successfully.
 
-### Manual Trigger
+### Manual Trigger (for contributors)
 To manually trigger the training workflow:
 1. Go to **Actions** tab in GitHub
 2. Select **"Train model with Dagger"** workflow
