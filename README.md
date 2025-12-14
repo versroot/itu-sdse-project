@@ -25,7 +25,9 @@ Vivien Ivett Pribula
 │ └── dagger <- Dagger CLI binary
 │
 ├── ci/
-│ └── main.go <- Dagger pipeline
+│ ├── main.go <- Dagger pipeline
+│ ├── go.mod <- Go module dependencies for Dagger
+│ └── go.sum <- Dependency checksums
 │
 ├── data/
 │ └── raw/
@@ -64,8 +66,6 @@ Vivien Ivett Pribula
 │   └── test_preprocessingmock.py <- Preprocessing script execution test
 │
 ├── Dockerfile <- Production container image
-├── go.mod <- Go module dependencies for Dagger
-├── go.sum <- Dependency checksums
 ├── pyproject.toml <- Project metadata, dependencies, tool configs (ruff, pytest)
 ├── uv.lock <- Locked dependency versions
 ├── start_container.sh <- Helper script to launch interactive Docker container
