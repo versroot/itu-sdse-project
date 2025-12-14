@@ -1,12 +1,9 @@
 name: Train model with Dagger
 
 on:
-  # push:
-  # pull_request:
+  push:
+  pull_request:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["CI"]
-    types: ["completed"]
 
 jobs:
   dagger-train:
@@ -30,8 +27,9 @@ jobs:
           "$BIN_DIR/dagger" version
 
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
+        working-directory: ci # we set up to use /ci as dir, so no reason for dagger/main.go to exist
         run: |
-          cd ci && "$GITHUB_WORKSPACE/bin/dagger" run go run main.go
+          "$GITHUB_WORKSPACE/bin/dagger" run go run .
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
