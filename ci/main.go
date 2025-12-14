@@ -95,7 +95,8 @@ func main() {
 	)
 
 	// 6) export /app/model -> ../model (repo root)
-	_, err = cont.Directory("/app/model").Export(ctx, "model")
+	modelExportPath := filepath.Join(repoRootAbs, "model")
+	_, err = cont.Directory("/app/model").Export(ctx, modelExportPath)
 	if err != nil {
 		log.Fatalf("failed to export model artifact: %v", err)
 	}
