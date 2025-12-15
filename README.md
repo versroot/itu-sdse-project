@@ -74,12 +74,12 @@ Vivien Ivett Pribula
 
 # How to run the code and generate the model artifact
 
-Github workflow triggered automatically on every Push or Pull request.
+## GitHub Actions Workflow
 
-Manual Trigger in GitHub Actions is available for contributors.
+The training workflow runs automatically after the CI pipeline completes successfully, or can be triggered manually.
 
-Actions -> Train model with Dagger -> Run workflow -> main
-Model artifact stored in "Summary" after workflow is done.
+### Automatic Trigger
+The training workflow (`train-model.yml`) is automatically triggered when the CI workflow completes successfully.
 
 ## Local generation
 ### Prerequisites
