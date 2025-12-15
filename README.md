@@ -114,7 +114,6 @@ dagger run go run ./ci/main.go
 ```
 This will run the whole pipline, and results in model artifacts in the `./model` folder. 
 
-
 ## Local generation
 ### Prerequisites
 
