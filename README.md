@@ -89,7 +89,7 @@ To manually trigger the training workflow:
 4. Select the branch (default: `main`) and click **"Run workflow"**
 
 ### Accessing Model Artifacts
-After the workflow completes:
+The trained model is uploaded as a GitHub Actions artifact named `model`. After the workflow completes:
 1. Navigate to the completed workflow run
 2. Scroll down to the **"Artifacts"** section
 3. Download the `model` artifact which contains:
