@@ -44,7 +44,7 @@ Vivien Ivett Pribula
 │ └── columns_list.json <- Feature names for inference
 │
 ├── notebooks/
-│ └──0.01_Data_exploration.ipynb <- Exploratory data analysis
+│ └──0.01_Data_exploration.ipynb <- The notebooks/ directory contains exploratory analysis only and is not used in production pipelines.
 │ 
 │
 ├── tests/ <- Test suite (pytest)
