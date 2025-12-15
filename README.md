@@ -114,7 +114,7 @@ dagger run go run ./ci/main.go
 ```
 This will run the whole pipline, and results in model artifacts in the `./model` folder. 
 
-# Refferences:
+# References:
 
 This repository is a fork from [Lasse Lund Sten Jensen's original project repo](https://github.com/lasselundstenjensen/itu-sdse-project).
 
@@ -124,7 +124,7 @@ This repository is a fork from [Lasse Lund Sten Jensen's original project repo](
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
-Note: We wanted to implement DVC with GoogleDrive connection, but dues to an authentication issue we werew not able to use this approach - it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub.
+Note: We wanted to implement DVC with GoogleDrive connection, but due to an authentication issue we were not able to use this approach as it only worked for the repo owner. We decided to fall back to DVC handling from GitHub, as there were no better alternative for the scope of the project.
 
 ```
 
