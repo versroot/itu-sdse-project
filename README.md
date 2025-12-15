@@ -8,10 +8,10 @@
 
 # Team members:
 
-Alexandru Jizdan, <br>
-Kateryna Tkachuk, <br>
-Mykyta Taranov, <br>
-Vivien Ivett Pribula
+- Alexandru Jizdan (alji@itu.dk); <br>
+- Kateryna Tkachuk (ktka@itu.dk); <br>
+- Mykyta Taranov (myta@itu.dk); <br>
+- Vivien Ivett Pribula (vivp@itu.dk)
 
 ## Project structure
 
@@ -124,27 +124,27 @@ This will run the whole pipline, and results in model artifacts in the `./model`
 uv sync
 
 2. Update data from DVC
-dvc update data/raw/raw_data.csv.dvc
+`dvc update data/raw/raw_data.csv.dvc`
 
 3. Set MLflow tracking
-export MLFLOW_TRACKING_URI="file:./mlruns"
+`export MLFLOW_TRACKING_URI="file:./mlruns"`
 
 4. Generate artifacts with preprocessing
-uv run python -m mlops_project.preprocessing
+`uv run python -m mlops_project.preprocessing`
 
 5. Run training, model_selection and deployment
-uv run python -m mlops_project.training
-uv run python -m mlops_project.model_select
-uv run python -m mlops_project.deploy
+`uv run python -m mlops_project.training`
+`uv run python -m mlops_project.model_select`
+`uv run python -m mlops_project.deploy`
 
 6. Package final model artifacts
-mkdir -p model
-cp artifacts/lead_model_lr.pkl model/model.pkl
-cp artifacts/columns_list.json model/columns_list.json
-cp artifacts/scaler.pkl model/scaler.pkl
+`mkdir -p model`
+`cp artifacts/lead_model_lr.pkl model/model.pkl`
+`cp artifacts/columns_list.json model/columns_list.json`
+`cp artifacts/scaler.pkl model/scaler.pkl`
 
 7. Verify artifacts
-ls -lh model/
+`ls -lh model/`
 
 # References:
 
