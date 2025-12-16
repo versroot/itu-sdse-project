@@ -1,8 +1,10 @@
-# The project is part of Data Science in Production: MLOps and Software Engineering [BSDSPMS1KU] at <br> IT University of Copenhagen
+# MLOps and Software Engineering Project'25 - Git Gut
 
 ## Project Overview
 
 An automated MLOps pipeline for lead conversion prediction featuring CI/CD with GitHub Actions, containerized workflows with Docker and Dagger (Go), experiment tracking via MLflow, and multi-algorithm model training with automated validation and deployment.
+
+The project is part of the course Data Science in Production: MLOps and Software Engineering [BSDSPMS1KU] at <br> IT University of Copenhagen
 
 <a href="https://github.com/lasselundstenjensen/itu-sdse-project">
     The original project description
