@@ -149,20 +149,20 @@ This will run the whole pipeline, and results in model artifacts in the `./model
 
 3. Run training, model_selection and deployment
 
-   ````uv run python -m mlops_project.training
+   ```
+   uv run python -m mlops_project.training
    uv run python -m mlops_project.model_select
-   uv run python -m mlops_project.deploy```
-
-   ````
+   uv run python -m mlops_project.deploy
+   ```
 
 4. Package final model artifacts
 
-   ````mkdir -p model
+   ```
+   mkdir -p model
    cp artifacts/lead_model_lr.pkl model/model.pkl
    cp artifacts/columns_list.json model/columns_list.json
-   cp artifacts/scaler.pkl model/scaler.pkl```
-
-   ````
+   cp artifacts/scaler.pkl model/scaler.pkl
+   ```
 
 5. Verify artifacts
    ```
