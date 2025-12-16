@@ -34,7 +34,7 @@
 │ │ └── raw_data.csv.dvc <- DVC metadata for data versioning
 │
 ├── mlops_project/ <- Core ML pipeline modules
-│ ├── **init**.py
+│ ├── \_\_init\_\_.py
 │ ├── preprocessing.py <- Data loading, cleaning, feature engineering, scaling
 │ ├── training.py <- Model training loop (LogReg, RF, XGBoost) with MLflow tracking
 │ ├── model_select.py <- Selects best model from experiments, registers in MLflow
@@ -47,7 +47,7 @@
 │
 ├── notebooks/
 │ └──0.01_Data_exploration.ipynb <- The notebooks/ directory contains exploratory analysis only and is not used in production pipelines.
-│ 
+│
 │
 ├── tests/ <- Test suite (pytest)
 │ ├── unit/ <- Unit tests
@@ -79,17 +79,22 @@
 The training workflow runs automatically after the CI pipeline completes successfully, or can be triggered manually.
 
 ### Automatic Trigger
+
 The training workflow (`train-model.yml`) is automatically triggered when the CI workflow completes successfully.
 
 ### Manual Trigger (for contributors)
+
 To manually trigger the training workflow:
+
 1. Go to **Actions** tab in GitHub
 2. Select **"Train model with Dagger"** workflow
 3. Click **"Run workflow"**
 4. Select the branch (default: `main`) and click **"Run workflow"**
 
 ### Accessing Model Artifacts
+
 The trained model is uploaded as a GitHub Actions artifact named `model`. After the workflow completes:
+
 1. Navigate to the completed workflow run
 2. Scroll down to the **"Artifacts"** section
 3. Download the `model` artifact which contains:
@@ -100,6 +105,7 @@ The trained model is uploaded as a GitHub Actions artifact named `model`. After 
 ### Local workflow with `dagger`
 
 For local workflow running the following dependencies has to be the following ones:
+
 ```
 dagger >= v0.19.6
 go version >= go1.25.0
@@ -108,53 +114,53 @@ Docker >= 24.0
 ```
 
 To run the training workflow, run:
+
 ```
 cd ci && dagger run go run ./main.go
 ```
-This will run the whole pipline, and results in model artifacts in the `./model` folder. 
+
+This will run the whole pipline, and results in model artifacts in the `./model` folder.
 
 ## Local generation
+
 ### Prerequisites
 
 - Python 3.10
 - `uv` package manager (install with: `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 
 ### Steps
+
 1. Install dependencies from `pyproject.toml`
-uv sync
+   uv sync
 
 2. Update data from DVC
-`dvc update data/raw/raw_data.csv.dvc`
+   `dvc update data/raw/raw_data.csv.dvc`
 
 3. Set MLflow tracking
-`export MLFLOW_TRACKING_URI="file:./mlruns"`
+   `export MLFLOW_TRACKING_URI="file:./mlruns"`
 
 4. Generate artifacts with preprocessing
-`uv run python -m mlops_project.preprocessing`
+   `uv run python -m mlops_project.preprocessing`
 
 5. Run training, model_selection and deployment
-`uv run python -m mlops_project.training`
-`uv run python -m mlops_project.model_select`
-`uv run python -m mlops_project.deploy`
+   `uv run python -m mlops_project.training`
+   `uv run python -m mlops_project.model_select`
+   `uv run python -m mlops_project.deploy`
 
 6. Package final model artifacts
-`mkdir -p model`
-`cp artifacts/lead_model_lr.pkl model/model.pkl`
-`cp artifacts/columns_list.json model/columns_list.json`
-`cp artifacts/scaler.pkl model/scaler.pkl`
+   `mkdir -p model`
+   `cp artifacts/lead_model_lr.pkl model/model.pkl`
+   `cp artifacts/columns_list.json model/columns_list.json`
+   `cp artifacts/scaler.pkl model/scaler.pkl`
 
 7. Verify artifacts
-`ls -lh model/`
+   `ls -lh model/`
 
 # References:
 
 This repository is a fork from [Lasse Lund Sten Jensen's original project repo](https://github.com/lasselundstenjensen/itu-sdse-project).
 
 ---
-
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
 
 Note: We wanted to implement DVC with GoogleDrive connection, but due to an authentication issue we were not able to use this approach as it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub, as this was the better alternative for the scope of the project.
 
