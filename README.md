@@ -12,10 +12,10 @@ An automated MLOps pipeline for lead conversion prediction featuring CI/CD with 
 
 ## Team members:
 
-- <a href="https://github.com/alexjizdan">Alexandru Jizdan</a> (alji@itu.dk) <br>
+- <a href="https://github.com/alexjizdan">Alexandru Jizdan</a> (alji@itu.dk); <br>
 - <a href="https://github.com/katyatkachuk">Kateryna Tkachuk</a> (ktka@itu.dk); <br>
 - <a href="https://github.com/versroot">Mykyta Taranov</a> (myta@itu.dk); <br>
-- <a href="https://github.com/py-mesayaa">Vivien Ivett Pribula</a> (vivp@itu.dk)
+- <a href="https://github.com/py-mesayaa">Vivien Ivett Pribula</a> (vivp@itu.dk);
 
 ## Project structure
 
@@ -126,29 +126,46 @@ This will run the whole pipeline, and results in model artifacts in the `./model
 ### Prerequisites
 
 - Python 3.10
-- `uv` package manager (install with: `curl -LsSf https://astral.sh/uv/install.sh | sh`)
+- `uv` package manager, install with:
+  ```
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
 
 ### Steps
 
 1. Install dependencies from `pyproject.toml`
+
+   ```
    uv sync
+   ```
 
 2. Generate artifacts with preprocessing
-   `uv run python -m mlops_project.preprocessing`
+
+   ```
+   uv run python -m mlops_project.preprocessing
+   ```
 
 3. Run training, model_selection and deployment
-   `uv run python -m mlops_project.training`
-   `uv run python -m mlops_project.model_select`
-   `uv run python -m mlops_project.deploy`
+
+   ````uv run python -m mlops_project.training
+   uv run python -m mlops_project.model_select
+   uv run python -m mlops_project.deploy```
+
+   ````
 
 4. Package final model artifacts
-   `mkdir -p model`
-   `cp artifacts/lead_model_lr.pkl model/model.pkl`
-   `cp artifacts/columns_list.json model/columns_list.json`
-   `cp artifacts/scaler.pkl model/scaler.pkl`
+
+   ````mkdir -p model
+   cp artifacts/lead_model_lr.pkl model/model.pkl
+   cp artifacts/columns_list.json model/columns_list.json
+   cp artifacts/scaler.pkl model/scaler.pkl```
+
+   ````
 
 5. Verify artifacts
-   `ls -lh model/`
+   ```
+   ls -lh model/
+   ```
 
 # References:
 
