@@ -1,20 +1,20 @@
 name: Train model with Dagger
 
-on:
+on: # trigger on manual run or after CI completes
   # push:
   # pull_request:
   workflow_dispatch:
   workflow_run:
-        workflows: ["CI"]
-        types: ["completed"]
+    workflows: ["CI"]
+    types: ["completed"]
 
-jobs:
+jobs: # 2 jobs: dagger-train, validate-model, names are self-explanatory
   dagger-train:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # like git clone, git checkout; checkout is needed to access the Dockerfile
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -23,18 +23,18 @@ jobs:
 
       - name: Install Dagger CLI
         run: |
-          export BIN_DIR="$GITHUB_WORKSPACE/bin"
+          export BIN_DIR="$GITHUB_WORKSPACE/bin" 
           mkdir -p "$BIN_DIR"
           curl -L https://dl.dagger.io/dagger/install.sh | sh
           echo "$PWD/bin" >> "$GITHUB_PATH"
           "$BIN_DIR/dagger" version
-
+      # run full ML workflow with Dagger
       - name: Run Dagger workflow (preprocess, train, select, deploy, package)
         working-directory: ci # we set up to use /ci as dir, so no reason for dagger/main.go to exist
         run: |
           "$GITHUB_WORKSPACE/bin/dagger" run go run .
 
-      - name: Upload model artifact
+      - name: Upload model artifact # store artifacts(model.pkl, scaler.pkl, columns_list.json) for download and validation in next job
         uses: actions/upload-artifact@v4
         with:
           name: model
@@ -50,5 +50,5 @@ jobs:
           name: model
           path: ./model
 
-      - name: Run model validator
+      - name: Run model validator # requirement for the project to use this specific validator
         uses: lasselundstenjensen/itu-sdse-project-model-validator@main
