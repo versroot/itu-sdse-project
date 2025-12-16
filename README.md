@@ -1,17 +1,21 @@
-# The project is part of Data Science in Production: MLOps and Software Engineering [BSDSPMS1KU] at IT University of Copenhagen
+# The project is part of Data Science in Production: MLOps and Software Engineering [BSDSPMS1KU] at <br> IT University of Copenhagen
+
+## Project Overview
+
+An automated MLOps pipeline for lead conversion prediction featuring CI/CD with GitHub Actions, containerized workflows with Docker and Dagger (Go), experiment tracking via MLflow, and multi-algorithm model training with automated validation and deployment.
 
 <a href="https://github.com/lasselundstenjensen/itu-sdse-project">
     The original project description
 </a>
 
-# Team: Git Gut
+## Team: Git Gut
 
-# Team members:
+## Team members:
 
-- Alexandru Jizdan (alji@itu.dk); <br>
-- Kateryna Tkachuk (ktka@itu.dk); <br>
-- Mykyta Taranov (myta@itu.dk); <br>
-- Vivien Ivett Pribula (vivp@itu.dk)
+- <a href="https://github.com/alexjizdan">Alexandru Jizdan</a> (alji@itu.dk) <br>
+- <a href="https://github.com/katyatkachuk">Kateryna Tkachuk</a> (ktka@itu.dk); <br>
+- <a href="https://github.com/versroot">Mykyta Taranov</a> (myta@itu.dk); <br>
+- <a href="https://github.com/py-mesayaa">Vivien Ivett Pribula</a> (vivp@itu.dk)
 
 ## Project structure
 
@@ -31,7 +35,7 @@
 │
 ├── data/
 │ └── raw/
-│ │ └── raw_data.csv.dvc <- DVC metadata for data versioning
+│  └── raw_data.csv.dvc <- DVC metadata for data versioning
 │
 ├── mlops_project/ <- Core ML pipeline modules
 │ ├── __init__.py
@@ -44,10 +48,6 @@
 │ ├── model.pkl <- Serialized best model
 │ ├── scaler.pkl <- Fitted MinMaxScaler
 │ └── columns_list.json <- Feature names for inference
-│
-├── notebooks/
-│ └──0.01_Data_exploration.ipynb <- The notebooks/ directory contains exploratory analysis only and is not used in production pipelines.
-│
 │
 ├── tests/ <- Test suite (pytest)
 │ ├── unit/ <- Unit tests
@@ -104,7 +104,7 @@ The trained model is uploaded as a GitHub Actions artifact named `model`. After 
 
 ### Local workflow with `dagger`
 
-For local workflow running the following dependencies has to be the following ones:
+For local workflow the following dependencies must be installed:
 
 ```
 dagger >= v0.19.6
@@ -119,7 +119,7 @@ To run the training workflow, run:
 cd ci && dagger run go run ./main.go
 ```
 
-This will run the whole pipline, and results in model artifacts in the `./model` folder.
+This will run the whole pipeline, and results in model artifacts in the `./model` folder.
 
 ## Local generation
 
@@ -159,11 +159,3 @@ This will run the whole pipline, and results in model artifacts in the `./model`
 # References:
 
 This repository is a fork from [Lasse Lund Sten Jensen's original project repo](https://github.com/lasselundstenjensen/itu-sdse-project).
-
----
-
-Note: We wanted to implement DVC with GoogleDrive connection, but due to an authentication issue we were not able to use this approach as it only worked for the repo owner. We decided to fall back to DVC hanling from GitHub, as this was the better alternative for the scope of the project.
-
-```
-
-```
