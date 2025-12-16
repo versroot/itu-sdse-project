@@ -34,7 +34,7 @@
 │ │ └── raw_data.csv.dvc <- DVC metadata for data versioning
 │
 ├── mlops_project/ <- Core ML pipeline modules
-│ ├── \_\_init\_\_.py
+│ ├── `__init__.py`
 │ ├── preprocessing.py <- Data loading, cleaning, feature engineering, scaling
 │ ├── training.py <- Model training loop (LogReg, RF, XGBoost) with MLflow tracking
 │ ├── model_select.py <- Selects best model from experiments, registers in MLflow
